@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+<!-- задаем заголовок страницы -->
+{% block title %}This is an page{% endblock %}
+<!-- блок body -->
+{% block content %}
+{{ wtf.quick_form(form, method='post',enctype="multipart/form-data", action="net") }}
+<!-- один из стандартных тэгов html - заголовок второго уровня -->
+<h2>Classes: </h2>
+<!-- проверяем есть ли данные классификации -->
+{% if neurodic %}
+ <!-- запускаем цикл прохода по словарю и отображаем ключ-значение -->
+ <!-- классифицированных файлов -->
+ {% for key, value in neurodic.items() %}
+ <h3>{{key}}: {{value}}</h3>
+ {% endfor %}
+{% else %}
+ <h3> There is no classes </h3>
+{% endif %}
+
+<table border="1">
+ <tr>
+  <th>Изображение:</th>
+  <th>График:</th>
+ </tr>
+ 
+ <tr>
+  <th>
+   {% if image_name %}
+    <p><img src={{image_name}} class="img-rounded" alt="My Image" width = 224 height=224 />
+   {% else %}
+    <p> There is no image yet </p>
+   {% endif %}
+  </th>
+  <th>
+   {% if gr_name %}
+    <p><img src={{gr_name}}/>
+   {% else %}
+    <p> There is no graphic yet </p>
+   {% endif %}
+  </th>
+ </tr>
+</table>
+
+{% endblock %}
